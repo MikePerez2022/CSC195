@@ -8,7 +8,7 @@ int main()
     int myint = 42;
     char myChar = 'x';
 
-    std::cout << "Hello World!\n";
+    std::cout << "Git\n";
 
     int anotherInt = 13;
     int* ptrInt; // pointer to a Integer
