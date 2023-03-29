@@ -5,7 +5,7 @@
 
 int main()
 {
-    int myInt = 42;
+    int myint = 42;
     char myChar = 'x';
 
     std::cout << "Hello World!\n";

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CSC.cpp">
+    <ClCompile Include="01_Week.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
