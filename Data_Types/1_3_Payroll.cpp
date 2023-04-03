@@ -48,8 +48,9 @@ int main()
 
     cout << "\n" << name << " Worked for " << dCount << " days: " << totalHours << " hours at $" << fWage << " Per hour. \n";
 
-    cout << "Gross Pay = " << fGrossPay << "\n";
-    cout << "Net Pay = " << netPay;
+    cout << "Gross Pay: " << fGrossPay << "\n";
+    cout << "Net Pay: " << netPay << "\n";
+    cout << "Tax payed: " << (fGrossPay * TAX);
 
     cout << "\n\n End of App";
 
