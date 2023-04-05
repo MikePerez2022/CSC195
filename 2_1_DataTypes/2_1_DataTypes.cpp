@@ -1,20 +1,61 @@
-// 2_1_DataTypes.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// 2_1_DataTypes.cpp 
 //
 
 #include <iostream>
+#include "Employee.h"
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    const unsigned short MAXEMP = 20;
+    unsigned int numEmployees = 0;
+
+    cout << "2_1_DataTypes Hello World\n";
+    Employee workers[MAXEMP];
+
+    cout << "\n Please enter the number of employees: ";
+    cin >> numEmployees;
+
+    if (numEmployees > MAXEMP) numEmployees = MAXEMP;
+
+    for (int empCount = 0; empCount < numEmployees; empCount++) {
+
+        Employee* empPtr = NULL;
+        empPtr = &workers[empCount];
+
+        memset(empPtr->name, '\0', 33);
+        
+        empPtr->Read();
+    }
+
+    for (int empCount = 0; empCount < numEmployees; empCount++) {
+
+        Employee* empPtr = NULL;
+        empPtr = &workers[empCount];
+
+        empPtr->Write();
+    }
+    
+    
+    //Employee* empPointer = NULL; // new Employee() - heap
+    //empPointer = &workers[0];
+    //empPointer->age = 42;
+    //empPointer->Read();
+
+
+    //void* ptr = malloc(20);
+    //int* intPtr = new int;
+
+    //*intPtr = 42;
+    //printf("\n hex %00.x", *intPtr);
+    //do stuff with memory
+    //cout << sizeof(Employee);
+    //delete empPointer; // - only for heap memory
+    //delete intPtr;
+
+    //*****!!!!!!*****  -  Useful later on
+    //cout << "\n Size 1: " << (sizeof(workers) / sizeof(workers[1]));
+    //cout << "\n Size 2: " << std::size(workers);
+
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
