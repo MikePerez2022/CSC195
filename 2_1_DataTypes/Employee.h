@@ -19,7 +19,8 @@ private:
 	float wage = 0; 
 
 public:
-	Employee();
+	Employee(); // Constructor
+	// -Employee(); // Deconstructor
 	void Read();
 	void Write();
 };

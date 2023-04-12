@@ -28,7 +28,7 @@ int main()
         empPtr->Read();
     }
 
-    for (int empCount = 0; empCount < numEmployees; empCount++) {
+    for (int empCount = 0; empCount < numEmployees; empCount++) {    //Directions said to make 2 for loops one for read and the other for write
 
         Employee* empPtr = NULL;
         empPtr = &workers[empCount];
