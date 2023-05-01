@@ -21,3 +21,19 @@ void Fish::Write(std::ostream& ostr) {
 	ostr << "Num Teeth: " << this->_numTeeth << "\n";
 	ostr << "Habitat: " << this->_habitat << "\n";
 }
+
+/// /////////////////////////////////////////
+void Fish::read(std::ifstream& ifstr) {
+	Animal::read(ifstr);
+	ifstr >> this->_numFins;
+	ifstr >> this->_numTeeth;
+	ifstr >> this->_habitat;
+}
+
+/// /////////////////////////////////////
+void Fish::write(std::ofstream& ofstr) {
+	Animal::write(ofstr);
+	ofstr << "\n" << this->_numFins;
+	ofstr << "\n" << this->_numTeeth;
+	ofstr << "\n" << this->_habitat << "\n";
+}

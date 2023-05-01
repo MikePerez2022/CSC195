@@ -54,3 +54,47 @@ void Database::DisplayByType(std::ostream& ostr, string type) {
 	}
 }
 
+// /////////////////////////////////////
+
+void Database::Save(const string fileName) {
+	//Open file
+	std::ofstream output(fileName, std::ofstream::out | std::ofstream::app); //Bitwise or
+
+	if (output.is_open()) {// == ture
+		for (std::unique_ptr<Animal>& animal : this->_animal) {
+			animal->write(output);
+			
+		}
+	}
+
+	if (output.is_open()) {
+		output.close();
+	}
+
+}
+
+// /////////////////////////////////////
+void Database::Load(const string fileName) {
+	int iType = 0;
+	std::ifstream output(fileName);
+	std::unique_ptr<Animal> animal;
+	
+	this->RemoveAll();
+
+	
+	if (output.is_open()) {//output.is_open == ture
+		while (!output.eof()) {
+			output >> iType;
+			if (output.fail()) break;
+			animal = this->Create(static_cast<Animal::eType>(iType));
+
+			animal->read(output);
+			this->Add(animal);
+		}//end while
+	}//end if
+
+	if (output.is_open()) {
+		output.close();
+	}
+}
+

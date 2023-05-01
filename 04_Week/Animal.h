@@ -1,6 +1,8 @@
 #pragma once
 #include <list>
 #include <iostream>
+#include <fstream>//
+#include <ostream>//
 using namespace std;
 
 class Animal
@@ -25,5 +27,8 @@ public:
 
 	virtual void Read(std::ostream& ostr, std::istream& istr);
 	virtual void Write(std::ostream& ostr);
+
+	virtual void read(std::ifstream& ifstr);
+	virtual void write(std::ofstream& ofstr);
 };
 

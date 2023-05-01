@@ -34,4 +34,17 @@ void Animal::Write(std::ostream& ostr) {
 	ostr << "Color: " << this->_color << "\n";
 }
 
+/// /////////////////////////////////////////
+void Animal::read(std::ifstream& ifstr) {
+	ifstr >> this->_name;
+	ifstr >> this->_lifespan;
+	ifstr >> this->_color;
+}
 
+/// /////////////////////////////////////
+void Animal::write(std::ofstream& ofstr) {
+	ofstr << (int)this->GetType() << std::endl; //must be first record
+	ofstr << "\n" << this->_name;
+	ofstr << "\n" << this->_lifespan;
+	ofstr << "\n" << this->_color;
+}

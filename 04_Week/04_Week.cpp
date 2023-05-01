@@ -19,15 +19,18 @@ int main()
 
     int iMenu = 0;
 
-    while (iMenu != 6) {
+    while (iMenu != 8) {
         cout << "Enter a menu option: \n";
         cout << "1) Add an Animal \n";
         cout << "2) Display All Animals \n";
         cout << "3) Display by name \n";
         cout << "4) Display by type \n";
-        cout << "6) Quit\n";
+        cout << "5) Remove all \n";
+        cout << "6) Load from file \n";
+        cout << "7) Save to file \n";
+        cout << "8) Quit\n";
 
-        iMenu = input.GetUserInt("asdf", 1, 6);
+        iMenu = input.GetUserInt("asdf", 1, 8);
         int iType = 0;
         string searchName = " ";
         string animalType = " ";
@@ -54,8 +57,7 @@ int main()
             db.DisplayAll(cout);
             break;
         case 3:
-            //prompt by name
-            //pass through and cout by name
+            
             cout << "What is the name: " << "\n";
             cin >> searchName;
             db.DisplayByName(cout, searchName);
@@ -63,9 +65,21 @@ int main()
         case 4:
             cout << "What animal type: " << "\n";
             cin >> animalType;
-            //prompt by type
-            //pass type and cout by type
             db.DisplayByType(cout, animalType);
+            break;
+        case 5:
+
+            break;
+        case 6:
+            db.Load(db.FILE_NAME);
+            cout << "\n";
+            break;
+
+        case 7:
+            //save to file
+
+            db.Save(db.FILE_NAME);
+            cout << "Saved.... \n";
             break;
 
         }
