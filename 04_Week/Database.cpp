@@ -25,7 +25,7 @@ void Database::Add(std::unique_ptr<Animal>& animal){
 // /////////////////////////////////////
 void Database::DisplayAll(std::ostream& ostr){
 	for (std::unique_ptr<Animal>& animal : this->_animal) {
-		animal->Write(ostr);
+		ostr << *animal;//animal->Write(ostr);
 		ostr << "\n";
 	}
 }
@@ -33,7 +33,7 @@ void Database::DisplayAll(std::ostream& ostr){
 void Database::DisplayByName(std::ostream& ostr, string name) {
 	for (std::unique_ptr<Animal>& animal : this->_animal) {
 		if (animal->GetName() == name) {
-			animal->Write(ostr);
+			ostr << *animal;
 			ostr << "\n";
 		} else {
 			ostr << "Name is non-exsistent in data base" << "\n";
@@ -45,7 +45,7 @@ void Database::DisplayByName(std::ostream& ostr, string name) {
 void Database::DisplayByType(std::ostream& ostr, string type) {
 	for (std::unique_ptr<Animal>& animal : this->_animal) {
 		if (animal->GetTypeString() == type) {
-			animal->Write(ostr);
+			ostr << *animal;
 			ostr << "\n";
 		} else {
 			ostr << "Type of animal is non-exsistent in data base" << "\n";
@@ -60,9 +60,9 @@ void Database::Save(const string fileName) {
 	//Open file
 	std::ofstream output(fileName, std::ofstream::out | std::ofstream::app); //Bitwise or
 
-	if (output.is_open()) {// == ture
+	if (output.is_open()) {// == true
 		for (std::unique_ptr<Animal>& animal : this->_animal) {
-			animal->write(output);
+			output << *animal;
 			
 		}
 	}
@@ -88,7 +88,7 @@ void Database::Load(const string fileName) {
 			if (output.fail()) break;
 			animal = this->Create(static_cast<Animal::eType>(iType));
 
-			animal->read(output);
+			output >> *animal;
 			this->Add(animal);
 		}//end while
 	}//end if

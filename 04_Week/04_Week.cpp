@@ -49,7 +49,7 @@ int main()
 
             }//Inner case
 
-            animal->Read(std::cout, std::cin);
+            cin >> *animal;
             db.Add(animal);
             break;
 
@@ -60,6 +60,7 @@ int main()
             
             cout << "What is the name: " << "\n";
             cin >> searchName;
+
             db.DisplayByName(cout, searchName);
             break;
         case 4:
@@ -68,7 +69,7 @@ int main()
             db.DisplayByType(cout, animalType);
             break;
         case 5:
-
+            db.remove();
             break;
         case 6:
             db.Load(db.FILE_NAME);

@@ -48,3 +48,31 @@ void Animal::write(std::ofstream& ofstr) {
 	ofstr << "\n" << this->_lifespan;
 	ofstr << "\n" << this->_color;
 }
+
+// ////////////////////////////////////
+std::istream& operator >> (std::istream& istr, Animal& animal) {
+	animal.Read(std::cout, istr);
+
+	return istr;
+}
+
+// ////////////////////////////////////
+std::ostream& operator << (std::ostream& ostr, Animal& animal) {
+	animal.Write(ostr);
+
+	return ostr;
+}
+
+// ////////////////////////////////////
+std::ifstream& operator >> (std::ifstream& ifstr, Animal& animal) {
+	animal.read(ifstr);
+
+	return ifstr;
+}
+
+// ////////////////////////////////////
+std::ofstream& operator << (std::ofstream& ofstr, Animal& animal) {
+	animal.write(ofstr);
+
+	return ofstr;
+}

@@ -21,6 +21,7 @@ public:
 
 	void Save(const string fileName);
 	void Load(const string fileName);// & only made this lighter
+	void remove() { RemoveAll(); };
 
 protected:
 	void RemoveAll() { _animal.clear(); };

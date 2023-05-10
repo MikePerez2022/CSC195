@@ -37,3 +37,4 @@ void Fish::write(std::ofstream& ofstr) {
 	ofstr << "\n" << this->_numTeeth;
 	ofstr << "\n" << this->_habitat << "\n";
 }
+
