@@ -35,8 +35,8 @@ int main()
     //Heap memory
     char* chTemp = NULL;
     chTemp = (char*)malloc(20);
-    memset(chTemp, '\0', 20);
-    //memset(chTemp, 0, 20); // 0, '\0', NULL
+    //memset(chTemp, '\0', 20);
+    memset(chTemp, 0, 20); // 0, '\0', NULL
 
     //Do stuff with the memory, then
     free(chTemp);
