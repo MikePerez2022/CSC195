@@ -12,89 +12,66 @@ namespace nc
 		{
 			node_t(const T& value) : _value{ value } {}
 			T _value;
-			node_t* _next{ nullptr }; // if null = bottom
-			node_t* _prev{ nullptr }; // if null = top
+			node_t* _next{ nullptr };
+			node_t* _prev{ nullptr };
 		};
 
 	public:
-		void fp();
-		void printForward(node_t*head);
-
 		list() { };
 
-		list(const std::initializer_list<T>& ilist); // done?
+		list(const std::initializer_list<T>& ilist);
 
-		list(const list& other); //*** -- copy constructor
-		//~list(); //***
-		list& operator = (const list& other); // done
-		//T& front(); //***
-		//const T& front() const; //***
-		//T& back(); //***
-		//const T& back() const; //***
+		list(const list& other); 
+
+		~list();
+
+		list& operator = (const list& other);
+		T& front() { return _head->_value; }; 
+		const T& front() const { return _head->_value; };
+		T& back() { node_t* tail = this->tail(); return tail->_value; }; 
+		const T& back() const { node_t* tail = this->tail(); return tail->_value; }; 
 		void push_front(const T& value);
-		//void pop_front(); //***
-		void push_back(const T& value); // ???
-		//void pop_back(); //***
-		//void remove(const T& value); // find and remove //***
-		//void reverse(); // see references for implementation //***
+		void pop_front();
+		void push_back(const T& value);
+		void pop_back();		
+		void remove(const T& value); 
+		void reverse();
 		
 		//Not required ***************************************************
-		//void resize(size_t count, const T& value = T{});  
+		//void resize(size_t count, const T& value = T{});  // use a loop if I do this for extra credit
 
-		void clear() { _head = nullptr; }; // ???
-		bool empty() { return (size() == 0); } // done
-		size_t size(); // done
+		void clear() { _head = nullptr; }; 
+		bool empty() { return (size() == 0); }
+		size_t size();
 		
 		//Not Required ***************************************************
 		//size_t max_size() { return std::numeric_limits<size_t>::max(); }
 		
-		std::ostream& write(std::ostream& stream); // done?
+		std::ostream& write(std::ostream& stream);
 	private:
-		node_t* tail(); // done?
+		node_t* tail();
 	private:
-		node_t* _head{ nullptr }; // done?
+		node_t* _head{ nullptr };
 	};
 
+	/////////////////
 
-	//////////////////////////
 	template<typename T>
 	list<T>& list<T>::operator = (const list& other) {
-		/*
-		clear();
-		node_t* node = other._head;	
-		
-		while (node) {
-			push_back(node->_value);
-			node = node->_next;
-		}
-
-		return *this;
-
-		*/
-		
-		clear();
+		clear(); 
 		node_t* oldN = other._head;
-		//node_t* bs = new node_t(NULL);
-
-		//bs->_value = node->_value;
-		//bs->_next = node->_next;
-		//bs->_prev = node->_prev;
-		//_head = bs;
-
-		
 		
 		while (oldN) {
-			push_front(oldN->_value);
-			
+			push_back(oldN->_value);
 			oldN = oldN->_next;
 		}
 
-		//_head = oldN;
 
 		return *this;
 	}	
 
-	/////////////////////     ---------------------        I think this is finished
+	/////////////////
+
 	template<typename T>
 	typename list<T>::node_t* list<T>::tail() {
 		node_t* node = _head; 
@@ -109,11 +86,12 @@ namespace nc
 			}
 			
 		}
+
+		return node;
 	}
 	
+	/////////////////
 
-
-	/////////////////////     ----------------------       I think this is finished
 	template<typename T>
 	list<T>::list(const std::initializer_list<T>& ilist) {
 
@@ -144,8 +122,8 @@ namespace nc
 						
 	}
 
+	/////////////////
 
-	////////////////////     -----------------             I think this is finished
 	template<typename T>
 	inline std::ostream& list<T>::write(std::ostream& stream){
 
@@ -162,7 +140,7 @@ namespace nc
 		return stream; 
 	}
 
-	///////////////////      -----------------             I think this is finished
+	/////////////////
 
 	template<typename T>
 	inline void list<T>::push_back(const T& value){
@@ -172,12 +150,17 @@ namespace nc
 
 		node->_next = nullptr;
 		node->_prev = tail;
-		tail->_next = node;
+		if (node->_prev == nullptr) {
+			_head = node;
+		}
+		else {
+			tail->_next = node;
+		}
 		tail = node;
 
 	}
 
-	///////////////////      -----------------             I think this is finished
+	/////////////////
 
 	template<typename T>
 	inline void list<T>::push_front(const T& value) {
@@ -185,15 +168,25 @@ namespace nc
 		node_t* node = new node_t(value);
 		node_t* prevHead = _head;
 
-		prevHead->_prev = node;
+		if (node->_next == nullptr) {
+			node_t* tail = this->tail();
+			tail = node;
+			
+		}
+		else {
+
+			prevHead->_prev = node;
+		}
+
 
 		node->_next = prevHead;
 		node->_prev = nullptr;
+		
 		_head = node;
 
 	}
 
-	//////////////////
+	/////////////////
 
 	template<typename T>
 	inline size_t list<T>::size(){
@@ -208,7 +201,7 @@ namespace nc
 		return count;
 	}
 
-	/////////////////          ------------------------    This isn't finished
+	/////////////////
 
 	template<typename T>
 	list<T>::list(const list& other) {
@@ -223,22 +216,122 @@ namespace nc
 
 	}
 	
+	/////////////////
 
-
-	// ********************** print logic
-
-	/*  ------------------   
 	template<typename T>
-	void list<T>::printForward(node_t*head) {
-		node_t* traverser = head;
-		while (traverser != nullptr){
-			cout << traverser->_value << "\n";
-			traverser = traverser->_next;
+	list<T>::~list() {
+		node_t* node;
+
+		while (_head != nullptr) {
+			node = _head;
+			_head = node->_next;
+			delete node;
+		}
+
+		_head = nullptr;
+	}
+
+	/////////////////
+
+	template<typename T>
+	void list<T>::pop_front() {
+		node_t* node = _head;
+		node_t* nextHead = node->_next; 
+		nextHead->_prev = nullptr;
+		_head = nextHead;
+
+		node->_next = nullptr;
+		node->_prev = nullptr;
+		delete node;
+	}
+
+	/////////////////
+
+	template<typename T>
+	void list<T>::pop_back() {
+		node_t* tail = this->tail();
+
+		node_t* delnode = tail;
+
+		tail = delnode->_prev;
+		tail->_next = nullptr;
+
+		delnode->_prev = nullptr;
+		delete delnode;
+
+		//or
+		//delnode->_prev = nullptr;
+		//delnode->_value = NULL;
+	}
+
+	/////////////////
+
+	template<typename T>
+	void list<T>::remove(const T& value) {
+		node_t* traverser = _head;
+		node_t* delNode;
+		node_t* nextNode;
+		node_t* prevNode;
+
+		while (traverser != nullptr) {
+			if (traverser->_value == value) {
+				nextNode = traverser->_next;
+				prevNode = traverser->_prev;
+
+				delNode = traverser;
+
+				if (nextNode == nullptr) {
+					pop_back();
+
+					node_t* tail = this->tail();
+					traverser = tail;
+
+					traverser = traverser->_next;
+				}
+				else if (prevNode == nullptr) {
+					pop_front();
+
+					traverser = _head;
+					traverser = traverser->_next;
+				}
+				else {
+					nextNode->_prev = prevNode;
+					prevNode->_next = nextNode;
+					traverser = traverser->_next;
+					delete delNode;
+					
+				}
+					 
+				//delete delNode;
+				// or 
+				//delNode->_value = NULL;
+				//delNode->_next = nullptr;
+				//delNode->_prev = nullptr;
+			}
+			else
+			{
+				traverser = traverser->_next;
+			}
 		}
 	}
-	*/
 
-	// ********************** Doubly Linked List - it works without the constructor
+	/////////////////
+
+	template<typename T>
+	void list<T>::reverse() {
+		node_t* node = _head;
+		clear();
+
+		clear(); 
+		while (node)
+		{
+			push_front(node->_value);
+			node = node->_next;
+		}
+	}
+
+
+	// ********************** Doubly Linked List -- demo for understanding -- personal research
 
 	/* -------------  
 	template<typename T>
@@ -289,7 +382,7 @@ namespace nc
 
 	*/
 
-	// ********************** Linked List - it works without the constructor
+	// ********************** Linked List -- demo for understanding -- personal research
 
 	/*  
 	template<typename T>
