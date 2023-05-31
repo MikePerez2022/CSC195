@@ -37,5 +37,5 @@ int main() {
 	std::cout << "empty: " << numbers.empty() << std::endl;
 	numbers.~list();
 	copy.~list();
-	
+
 }
